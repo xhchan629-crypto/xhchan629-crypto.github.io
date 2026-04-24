@@ -3,26 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Google Ads 广告效力知识看板</title>
+    <title>Google Ads 广告效力知识库</title>
     <style>
       :root {
-        --bg: #f4f7fb;
-        --surface: #ffffff;
-        --surface-2: #f8fafc;
-        --line: #e5ebf3;
-        --text: #152033;
-        --muted: #607089;
-        --navy: #193b68;
-        --blue: #2f76ff;
-        --blue-soft: #eaf2ff;
-        --green: #16a56b;
-        --green-soft: #eaf8f2;
-        --amber: #b7791f;
-        --amber-soft: #fff6df;
-        --rose: #b45309;
-        --rose-soft: #fff0df;
-        --shadow: 0 18px 40px rgba(21, 32, 51, 0.08);
-        --radius: 18px;
+        --bg: #f7f8fa;
+        --card: #ffffff;
+        --line: #e5e7eb;
+        --text: #111827;
+        --muted: #6b7280;
+        --blue: #2563eb;
+        --green: #15803d;
+        --amber: #b45309;
+        --shadow: 0 8px 24px rgba(17, 24, 39, 0.06);
       }
 
       * {
@@ -33,9 +25,7 @@
         margin: 0;
         font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
         color: var(--text);
-        background:
-          radial-gradient(circle at top right, rgba(47, 118, 255, 0.08), transparent 24%),
-          linear-gradient(180deg, #f8fafc 0%, #f2f6fb 100%);
+        background: var(--bg);
       }
 
       a {
@@ -43,287 +33,115 @@
         text-decoration: none;
       }
 
-      button,
-      input {
-        font: inherit;
+      .wrap {
+        width: min(1100px, calc(100vw - 32px));
+        margin: 24px auto 40px;
       }
 
-      .page {
-        display: grid;
-        grid-template-columns: 250px minmax(0, 1fr);
-        min-height: 100vh;
+      .hero,
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        box-shadow: var(--shadow);
       }
 
-      .sidebar {
-        position: sticky;
-        top: 0;
-        height: 100vh;
-        padding: 22px 18px;
-        background: linear-gradient(180deg, #16355c 0%, #1f4b80 100%);
-        color: #fff;
-      }
-
-      .brand {
-        padding: 6px 8px 18px;
-        margin-bottom: 18px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-      }
-
-      .brand .mini {
-        font-size: 12px;
-        opacity: 0.8;
-        letter-spacing: 0.08em;
-      }
-
-      .brand h1 {
-        margin: 10px 0 8px;
-        font-size: 28px;
-        line-height: 1.05;
-      }
-
-      .brand p {
-        margin: 0;
-        color: rgba(255, 255, 255, 0.82);
-        line-height: 1.6;
-        font-size: 13px;
-      }
-
-      .nav-block {
-        margin-bottom: 18px;
-      }
-
-      .nav-title {
-        margin: 0 0 10px;
-        font-size: 12px;
-        color: rgba(255, 255, 255, 0.68);
-        letter-spacing: 0.08em;
-      }
-
-      .search-box,
-      .nav-btn {
-        width: 100%;
-        border-radius: 12px;
-      }
-
-      .search-box {
-        border: 1px solid rgba(255, 255, 255, 0.16);
-        background: rgba(255, 255, 255, 0.08);
-        color: white;
-        padding: 12px 13px;
-        outline: none;
-      }
-
-      .search-box::placeholder {
-        color: rgba(255, 255, 255, 0.56);
-      }
-
-      .nav-buttons {
-        display: grid;
-        gap: 9px;
-      }
-
-      .nav-btn {
-        border: 1px solid transparent;
-        background: rgba(255, 255, 255, 0.08);
-        color: inherit;
-        padding: 11px 12px;
-        text-align: left;
-        cursor: pointer;
-      }
-
-      .nav-btn.active,
-      .nav-btn:hover {
-        background: white;
-        color: var(--navy);
-      }
-
-      .main {
+      .hero {
         padding: 24px;
-      }
-
-      .topbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        gap: 16px;
         margin-bottom: 18px;
       }
 
-      .topbar h2 {
-        margin: 0 0 8px;
-        font-size: 34px;
+      h1 {
+        margin: 0 0 10px;
+        font-size: 32px;
       }
 
-      .topbar p {
-        margin: 0;
-        max-width: 860px;
+      .hero p,
+      .card p,
+      .note {
         color: var(--muted);
         line-height: 1.7;
       }
 
-      .pills {
-        display: grid;
-        gap: 8px;
-      }
-
-      .pill {
-        display: inline-flex;
-        align-items: center;
-        padding: 9px 12px;
-        border-radius: 999px;
-        background: var(--surface);
-        border: 1px solid var(--line);
-        color: var(--muted);
-        box-shadow: var(--shadow);
-        white-space: nowrap;
-      }
-
-      .tabs {
+      .toolbar {
         display: flex;
-        gap: 10px;
+        gap: 12px;
         flex-wrap: wrap;
-        margin-bottom: 18px;
+        margin: 16px 0 0;
       }
 
-      .tab {
+      .search,
+      .filter {
         border: 1px solid var(--line);
-        background: var(--surface);
-        color: var(--muted);
-        padding: 10px 15px;
-        border-radius: 999px;
-        cursor: pointer;
+        border-radius: 10px;
+        background: #fff;
+        padding: 10px 12px;
+        font: inherit;
       }
 
-      .tab.active {
-        background: var(--blue);
-        color: white;
-        border-color: var(--blue);
+      .search {
+        flex: 1 1 320px;
       }
 
-      .panel {
-        display: none;
+      .filter {
+        flex: 0 0 auto;
       }
 
-      .panel.active {
-        display: block;
-      }
-
-      .kpis,
-      .grid-2,
-      .cards-3,
-      .detail-grid {
-        display: grid;
-        gap: 16px;
-      }
-
-      .kpis {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+      .section {
         margin-bottom: 18px;
-      }
-
-      .grid-2 {
-        grid-template-columns: 1fr 1fr;
-        margin-bottom: 18px;
-      }
-
-      .cards-3 {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-
-      .detail-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
       .card {
-        background: var(--surface);
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
         padding: 18px;
       }
 
-      .kpi-label {
-        color: var(--muted);
-        font-size: 13px;
-        margin-bottom: 10px;
+      .section h2 {
+        margin: 0 0 12px;
+        font-size: 22px;
       }
 
-      .kpi-value {
-        font-size: 30px;
-        font-weight: 700;
-        margin-bottom: 8px;
+      .summary-list,
+      .source-list,
+      .detail-list {
+        display: grid;
+        gap: 10px;
       }
 
-      .kpi-sub,
-      .card p {
-        color: var(--muted);
-        line-height: 1.65;
-      }
-
-      .section-head {
-        margin-bottom: 14px;
-      }
-
-      .section-head h3 {
-        margin: 0 0 6px;
-        font-size: 21px;
-      }
-
-      .section-head p {
-        margin: 0;
-        color: var(--muted);
-        line-height: 1.65;
+      .item {
+        padding: 12px 14px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: #fbfcfd;
       }
 
       .badge {
         display: inline-block;
-        padding: 5px 10px;
+        margin-right: 8px;
+        margin-bottom: 8px;
+        padding: 4px 8px;
         border-radius: 999px;
         font-size: 12px;
-        margin-bottom: 10px;
       }
 
-      .b-official {
-        background: var(--green-soft);
+      .official {
+        background: #e8f5ec;
         color: var(--green);
       }
 
-      .b-recommend {
-        background: var(--amber-soft);
+      .recommend {
+        background: #fff4e5;
         color: var(--amber);
       }
 
-      .b-derived {
-        background: var(--blue-soft);
+      .derived {
+        background: #e8f0ff;
         color: var(--blue);
-      }
-
-      .b-risk {
-        background: var(--rose-soft);
-        color: var(--rose);
-      }
-
-      .mini-list {
-        display: grid;
-        gap: 8px;
-      }
-
-      .mini-item {
-        padding: 11px 12px;
-        border-radius: 12px;
-        background: var(--surface-2);
-        border: 1px solid var(--line);
-        line-height: 1.65;
-      }
-
-      .matrix {
-        overflow: auto;
       }
 
       table {
         width: 100%;
-        min-width: 1100px;
         border-collapse: collapse;
+        background: #fff;
       }
 
       th,
@@ -332,560 +150,337 @@
         border-bottom: 1px solid var(--line);
         vertical-align: top;
         text-align: left;
+        line-height: 1.65;
       }
 
       th {
-        background: #f7f9fc;
-        color: var(--muted);
+        background: #f9fafb;
         font-size: 13px;
+        color: var(--muted);
         position: sticky;
         top: 0;
       }
 
-      .type-name {
-        font-weight: 700;
-        color: var(--navy);
-      }
-
-      .type-tag {
-        display: inline-block;
-        margin-bottom: 8px;
-        padding: 5px 9px;
-        border-radius: 999px;
-        font-size: 12px;
-      }
-
-      .tag-search { background: #e9f2ff; color: #2f76ff; }
-      .tag-display { background: #eef1ff; color: #576fd6; }
-      .tag-app { background: #eaf9f1; color: #16a56b; }
-      .tag-demand { background: #fff5df; color: #b7791f; }
-      .tag-pmax { background: #fff0df; color: #b45309; }
-
-      .cell {
-        white-space: pre-line;
-        line-height: 1.68;
+      .table-wrap {
+        overflow: auto;
       }
 
       tr.hidden {
         display: none;
       }
 
-      .source-list {
-        display: grid;
-        gap: 12px;
+      .type {
+        min-width: 170px;
+        font-weight: 700;
       }
 
-      .source-item {
+      details {
         border: 1px solid var(--line);
-        border-radius: 14px;
-        overflow: hidden;
+        border-radius: 12px;
+        background: #fff;
+        padding: 12px 14px;
       }
 
-      .source-toggle {
-        width: 100%;
-        border: 0;
-        background: white;
-        padding: 14px 16px;
+      details + details {
+        margin-top: 10px;
+      }
+
+      summary {
         cursor: pointer;
-        display: flex;
-        justify-content: space-between;
-        gap: 12px;
-        text-align: left;
+        font-weight: 600;
       }
 
-      .source-body {
-        display: none;
-        padding: 0 16px 16px;
+      .details-body {
+        margin-top: 10px;
         color: var(--muted);
         line-height: 1.7;
       }
 
-      .source-item.open .source-body {
-        display: block;
-      }
-
-      @media (max-width: 1100px) {
-        .page {
-          grid-template-columns: 1fr;
-        }
-
-        .sidebar {
-          position: static;
-          height: auto;
-        }
-
-        .kpis,
-        .grid-2,
-        .cards-3,
-        .detail-grid {
-          grid-template-columns: 1fr 1fr;
-        }
-      }
-
       @media (max-width: 760px) {
-        .main {
-          padding: 16px;
+        .wrap {
+          width: min(100vw - 20px, 1100px);
+          margin: 10px auto 24px;
         }
 
-        .topbar {
-          display: block;
-        }
-
-        .pills {
-          margin-top: 14px;
-        }
-
-        .kpis,
-        .grid-2,
-        .cards-3,
-        .detail-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .tabs {
-          overflow: auto;
-          flex-wrap: nowrap;
-        }
-
-        .tab {
-          white-space: nowrap;
+        h1 {
+          font-size: 26px;
         }
       }
     </style>
   </head>
   <body>
-    <div class="page">
-      <aside class="sidebar">
-        <div class="brand">
-          <div class="mini">GOOGLE ADS KNOWLEDGE HUB</div>
-          <h1>广告效力<br />知识看板</h1>
-          <p>这一版优先做“更准确”，把官方明确、官方建议、归纳建议分开显示。</p>
+    <div class="wrap">
+      <section class="hero">
+        <h1>Google Ads 广告效力知识库</h1>
+        <p>
+          这版按“简单、准确、一目了然”重做。核心原则是：优先保留 Google 官方明确写出的内容；如果只是官方建议，会单独标明；我自己的执行归纳会再单独区分，不混在一起。
+        </p>
+        <div class="toolbar">
+          <input id="searchInput" class="search" type="search" placeholder="搜索：站内链接 / 9:16 / 标题 / PMax" />
+          <select id="typeFilter" class="filter">
+            <option value="all">全部广告类型</option>
+            <option value="rsa">自适应搜索广告</option>
+            <option value="rda">自适应展示广告</option>
+            <option value="app">应用广告系列</option>
+            <option value="demand">需求开发广告系列</option>
+            <option value="pmax">效果最大化广告系列</option>
+          </select>
         </div>
+      </section>
 
-        <div class="nav-block">
-          <div class="nav-title">内容检索</div>
-          <input id="searchInput" class="search-box" type="search" placeholder="搜索：站内链接 / 9:16 / 标题" />
-        </div>
-
-        <div class="nav-block">
-          <div class="nav-title">广告类型</div>
-          <div class="nav-buttons" id="typeFilters">
-            <button class="nav-btn active" data-type="all">全部广告类型</button>
-            <button class="nav-btn" data-type="rsa">自适应搜索广告</button>
-            <button class="nav-btn" data-type="rda">自适应展示广告</button>
-            <button class="nav-btn" data-type="app">应用广告系列</button>
-            <button class="nav-btn" data-type="demand">需求开发广告系列</button>
-            <button class="nav-btn" data-type="pmax">效果最大化广告系列</button>
+      <section class="section">
+        <div class="card">
+          <h2>先看这 4 点</h2>
+          <div class="summary-list">
+            <div class="item">
+              <span class="badge official">官方明确</span>
+              能直接拿去当团队标准或培训材料。
+            </div>
+            <div class="item">
+              <span class="badge recommend">官方建议</span>
+              是 Google 明确推荐这样做，但不一定是硬门槛。
+            </div>
+            <div class="item">
+              <span class="badge derived">归纳建议</span>
+              是为了方便执行做的整理，不等于 Google 原文标准。
+            </div>
+            <div class="item">
+              Demand Gen 最适合直接照表执行；PMax 最适合做规格清单；RDA 和 App 更容易把“建议”误读成“硬要求”。
+            </div>
           </div>
         </div>
-      </aside>
+      </section>
 
-      <main class="main">
-        <div class="topbar">
-          <div>
-            <h2>Google Ads 广告效力知识看板</h2>
-            <p>
-              这版不再把所有内容都写成“像硬标准一样”的结论，而是优先保留 Google 官方明确写出的要求，再单独标出官方建议和便于执行的归纳建议。你后面如果继续扩展，这个结构会更稳。
-            </p>
-          </div>
-          <div class="pills">
-            <div class="pill">覆盖：5 类广告</div>
-            <div class="pill">来源：官方帮助页</div>
-            <div class="pill" id="visibleCount">当前显示：5 / 5</div>
+      <section class="section">
+        <div class="card">
+          <h2>官方对比表</h2>
+          <p class="note">建议优先看这张表。这里只放高价值信息，不追求花哨展示。</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>广告类型</th>
+                  <th>官方明确</th>
+                  <th>官方建议</th>
+                  <th>归纳建议</th>
+                  <th>关键规格</th>
+                </tr>
+              </thead>
+              <tbody id="matrixBody">
+                <tr data-type="rsa">
+                  <td class="type">自适应搜索广告（RSA）</td>
+                  <td>
+                    <span class="badge official">官方明确</span>
+                    每个广告组至少添加 1 条广告效力为“良好”或“极佳”的 RSA。<br />
+                    最多可提供 15 个标题、4 条描述。
+                  </td>
+                  <td>
+                    <span class="badge recommend">官方建议</span>
+                    尽可能提供更多标题和描述；在标题或描述中加入更相关的关键词；6+ 个站内链接会计入目标。
+                  </td>
+                  <td>
+                    <span class="badge derived">归纳建议</span>
+                    不要只检查文案，也要一起检查站内链接、图片素材资源、商家徽标和商家名称。
+                  </td>
+                  <td>
+                    标题 <=30 字符<br />
+                    描述 <=90 字符<br />
+                    路径每个 <=15 字符
+                  </td>
+                </tr>
+
+                <tr data-type="rda">
+                  <td class="type">自适应展示广告（RDA）</td>
+                  <td>
+                    <span class="badge official">官方明确</span>
+                    广告效力会根据素材配置与最佳做法的对比情况给出反馈。<br />
+                    添加许多独特素材资源时效果最佳。
+                  </td>
+                  <td>
+                    <span class="badge recommend">官方建议</span>
+                    最佳实践页建议准备横向 1.91:1、方形 1:1、纵向 9:16 图片，并使用高质量、不重复的图片与文案。
+                  </td>
+                  <td>
+                    <span class="badge derived">归纳建议</span>
+                    重点放在“素材多样化”和“图片质量”，不要把某个单独尺寸写成硬门槛。
+                  </td>
+                  <td>
+                    短标题 1-5 个<br />
+                    长标题 1 个<br />
+                    描述 1-5 条<br />
+                    图片最多 15 张
+                  </td>
+                </tr>
+
+                <tr data-type="app">
+                  <td class="type">应用广告系列</td>
+                  <td>
+                    <span class="badge official">官方明确</span>
+                    “未完成”的最低要求是至少 2 个标题和 1 条描述。<br />
+                    如果完成进度菜单中的所有步骤并添加各种优质素材资源，评分会达到“极佳”。
+                  </td>
+                  <td>
+                    <span class="badge recommend">官方建议</span>
+                    标题最多 5 个、描述最多 5 条。图片支持 1:1、1.91:1、4:5；视频可为横向、纵向或方形；建议上传尽可能多的视频。
+                  </td>
+                  <td>
+                    <span class="badge derived">归纳建议</span>
+                    可以把“三方向视频都准备”当成强建议，但别写成官方硬门槛。
+                  </td>
+                  <td>
+                    标题 <=30 字符<br />
+                    描述 <=90 字符<br />
+                    图片 <=5MB<br />
+                    视频最多 20 个
+                  </td>
+                </tr>
+
+                <tr data-type="demand">
+                  <td class="type">需求开发广告系列</td>
+                  <td>
+                    <span class="badge official">官方明确</span>
+                    图片“良好”条件：1 个横向、1 个纵向、1 个方形；“极佳”条件：3 个横向、3 个纵向、3 个方形。<br />
+                    视频、轮播、文字素材也分别给出条件。
+                  </td>
+                  <td>
+                    <span class="badge recommend">官方建议</span>
+                    素材越多样越有利于效果，广告效力会按标题、文字、图片和视频来衡量。
+                  </td>
+                  <td>
+                    <span class="badge derived">归纳建议</span>
+                    这是最适合直接做培训表的一类，可以按官方“良好 / 极佳”表做素材台账。
+                  </td>
+                  <td>
+                    单图标题最多 5 个（<=40）<br />
+                    描述最多 5 条（<=90）<br />
+                    视频支持 16:9、1:1、9:16
+                  </td>
+                </tr>
+
+                <tr data-type="pmax">
+                  <td class="type">效果最大化广告系列（PMax）</td>
+                  <td>
+                    <span class="badge official">官方明确</span>
+                    广告效力评定看素材资源组的广度和深度。<br />
+                    标题最少 3、推荐 11、最多 15；长标题最少 1、推荐 2、最多 5；描述最少 2、推荐 4、最多 5。
+                  </td>
+                  <td>
+                    <span class="badge recommend">官方建议</span>
+                    横屏图 1.91:1 推荐 4+、方图 1:1 推荐 4+、纵向 4:5 推荐 2+；站内链接 6+；视频建议每个方向 1 个。
+                  </td>
+                  <td>
+                    <span class="badge derived">归纳建议</span>
+                    最适合按“最少 / 推荐 / 最大 / 必需 / 可选”做团队规格表。
+                  </td>
+                  <td>
+                    标题 <=30 字符<br />
+                    长标题 <=90 字符<br />
+                    描述 <=90 字符<br />
+                    商家名称 <=25 字符
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
+      </section>
 
-        <div class="tabs">
-          <button class="tab active" data-tab="overview">判读说明</button>
-          <button class="tab" data-tab="matrix">官方对比</button>
-          <button class="tab" data-tab="playbook">执行参考</button>
-          <button class="tab" data-tab="sources">来源链接</button>
+      <section class="section">
+        <div class="card">
+          <h2>执行参考</h2>
+          <p class="note">这一部分是为了方便你自己用，不是官方逐字标准。</p>
+          <div class="detail-list">
+            <div class="item">
+              <strong>RSA：</strong> 文案、站内链接、图片素材资源、商家徽标和商家名称一起检查，不要只看标题和描述。
+            </div>
+            <div class="item">
+              <strong>RDA：</strong> 先解决素材多样化和图片质量，再考虑“是否缺某种尺寸”。
+            </div>
+            <div class="item">
+              <strong>App：</strong> 先满足 2 标题 + 1 描述，再逐步补图片和视频方向覆盖。
+            </div>
+            <div class="item">
+              <strong>Demand Gen：</strong> 最适合直接做成“良好 / 极佳”素材台账。
+            </div>
+            <div class="item">
+              <strong>PMax：</strong> 最适合按“文字 / 图片 / 徽标 / 视频 / 站内链接”五块分别核对。
+            </div>
+          </div>
         </div>
+      </section>
 
-        <section id="overviewTab" class="panel active">
-          <div class="kpis">
-            <div class="card">
-              <div class="kpi-label">覆盖广告类型</div>
-              <div class="kpi-value">5</div>
-              <div class="kpi-sub">RSA / RDA / App / Demand Gen / PMax</div>
+      <section class="section">
+        <div class="card">
+          <h2>来源链接</h2>
+          <details open>
+            <summary>总入口</summary>
+            <div class="details-body">
+              <a href="https://support.google.com/google-ads/answer/9142254?hl=zh-Hans" target="_blank" rel="noreferrer">广告效力简介</a>
             </div>
-            <div class="card">
-              <div class="kpi-label">引用来源</div>
-              <div class="kpi-value">12+</div>
-              <div class="kpi-sub">优先使用 Google Ads 官方帮助页</div>
+          </details>
+          <details>
+            <summary>自适应搜索广告（RSA）</summary>
+            <div class="details-body">
+              <a href="https://support.google.com/google-ads/answer/9921843?hl=zh-Hans" target="_blank" rel="noreferrer">自适应搜索广告的广告效力简介</a><br />
+              <a href="https://support.google.com/google-ads/answer/7684791?hl=zh-Hans" target="_blank" rel="noreferrer">自适应搜索广告简介</a><br />
+              <a href="https://support.google.com/google-ads/answer/6167122?hl=zh-Hans" target="_blank" rel="noreferrer">制作效果良好的搜索广告</a>
             </div>
-            <div class="card">
-              <div class="kpi-label">官方门槛最明确</div>
-              <div class="kpi-value">Demand Gen</div>
-              <div class="kpi-sub">官方直接给出良好 / 极佳素材条件</div>
+          </details>
+          <details>
+            <summary>自适应展示广告（RDA）</summary>
+            <div class="details-body">
+              <a href="https://support.google.com/google-ads/answer/9921844?hl=zh-Hans" target="_blank" rel="noreferrer">自适应展示广告的广告效力简介</a><br />
+              <a href="https://support.google.com/google-ads/answer/7005917?hl=zh-Hans" target="_blank" rel="noreferrer">制作自适应展示广告</a><br />
+              <a href="https://support.google.com/google-ads/answer/9823397?hl=zh-Hans" target="_blank" rel="noreferrer">自适应展示广告的最佳实践指南</a>
             </div>
-            <div class="card">
-              <div class="kpi-label">最适合做规格表</div>
-              <div class="kpi-value">PMax</div>
-              <div class="kpi-sub">官方直接给出最少 / 推荐 / 最大 / 必需</div>
+          </details>
+          <details>
+            <summary>应用广告系列</summary>
+            <div class="details-body">
+              <a href="https://support.google.com/google-ads/answer/9777426?hl=zh-Hans" target="_blank" rel="noreferrer">应用广告系列的广告效力简介</a><br />
+              <a href="https://support.google.com/google-ads/answer/9948381?hl=zh-Hans" target="_blank" rel="noreferrer">应用广告系列的素材资源类型</a><br />
+              <a href="https://support.google.com/google-ads/answer/9234183?hl=zh-Hans" target="_blank" rel="noreferrer">以吸引用户互动为目标的应用广告系列的素材资源要求</a>
             </div>
-          </div>
-
-          <div class="grid-2">
-            <section class="card">
-              <div class="section-head">
-                <h3>怎么读这张看板</h3>
-                <p>先看标签，再看内容。标签决定这条话能不能直接拿去当标准。</p>
-              </div>
-              <div class="mini-list">
-                <div class="mini-item">
-                  <span class="badge b-official">官方明确</span>
-                  Google 帮助页直接写出的要求、推荐数、最少数、必需项，或官方直接定义的评分条件。
-                </div>
-                <div class="mini-item">
-                  <span class="badge b-recommend">官方建议</span>
-                  Google 明确推荐这样做，但它不一定是广告效力的硬门槛。
-                </div>
-                <div class="mini-item">
-                  <span class="badge b-derived">归纳建议</span>
-                  为了方便执行，我把多篇官方页的内容压缩成更容易用的操作建议。
-                </div>
-                <div class="mini-item">
-                  <span class="badge b-risk">本次回避的误区</span>
-                  不再把推荐数写成“极佳必须数”，也不再用自定义百分比冒充官方评分。
-                </div>
-              </div>
-            </section>
-
-            <section class="card">
-              <div class="section-head">
-                <h3>这版最重要的准确性调整</h3>
-                <p>和上一版比，主要把最容易误读的地方降级处理了。</p>
-              </div>
-              <div class="mini-list">
-                <div class="mini-item">Demand Gen 保留较多“硬条件”，因为官方表格最完整。</div>
-                <div class="mini-item">PMax 改成“最少 / 推荐 / 最大 / 是否必需”的呈现方式。</div>
-                <div class="mini-item">RDA 和 App 不再把最佳实践页建议写成广告效力硬门槛。</div>
-                <div class="mini-item">RSA 继续保留“每组至少 1 条良好或极佳 RSA”，因为官方明确这样写。</div>
-              </div>
-            </section>
-          </div>
-
-          <section class="card">
-            <div class="section-head">
-              <h3>先记住的 3 个结论</h3>
-              <p>如果这页要给团队长期使用，这三个判断比花哨 UI 更重要。</p>
+          </details>
+          <details>
+            <summary>需求开发广告系列</summary>
+            <div class="details-body">
+              <a href="https://support.google.com/google-ads/answer/13720855?hl=zh-Hans" target="_blank" rel="noreferrer">需求开发广告系列的广告效力简介</a><br />
+              <a href="https://support.google.com/google-ads/answer/13704860?hl=zh-Hans" target="_blank" rel="noreferrer">需求开发广告系列素材资源的规格和最佳做法</a>
             </div>
-            <div class="cards-3">
-              <article class="card" style="box-shadow:none;">
-                <span class="badge b-official">最适合直接做标准</span>
-                <p><strong>Demand Gen</strong>：官方直接给出图片、视频、轮播和文字素材的“良好/极佳”条件，适合直接做培训表。</p>
-              </article>
-              <article class="card" style="box-shadow:none;">
-                <span class="badge b-official">最适合做规格表</span>
-                <p><strong>PMax</strong>：官方本身就是表格化规范，最容易按“最少 / 推荐 / 最大 / 必需”拆成执行清单。</p>
-              </article>
-              <article class="card" style="box-shadow:none;">
-                <span class="badge b-risk">最容易误判</span>
-                <p><strong>RDA / App</strong>：很多信息更偏最佳实践和素材建议，不适合硬写成“极佳必须如此”。</p>
-              </article>
+          </details>
+          <details>
+            <summary>效果最大化广告系列（PMax）</summary>
+            <div class="details-body">
+              <a href="https://support.google.com/google-ads/answer/14143250?hl=zh-Hans" target="_blank" rel="noreferrer">效果最大化广告系列的广告效力</a><br />
+              <a href="https://support.google.com/google-ads/answer/14528373?hl=zh-Hans" target="_blank" rel="noreferrer">适用于效果最大化广告系列的文字素材资源</a><br />
+              <a href="https://support.google.com/google-ads/answer/14530211?hl=zh-Hans" target="_blank" rel="noreferrer">适用于效果最大化广告系列的图片素材资源</a><br />
+              <a href="https://support.google.com/google-ads/answer/14528532?hl=zh-Hans" target="_blank" rel="noreferrer">适用于效果最大化广告系列的视频素材资源</a>
             </div>
-          </section>
-        </section>
-
-        <section id="matrixTab" class="panel">
-          <section class="card">
-            <div class="section-head">
-              <h3>官方对比矩阵</h3>
-              <p>这张表优先呈现官方帮助页明确写出的内容，并把建议和归纳拆开显示。</p>
-            </div>
-            <div class="matrix">
-              <table>
-                <thead>
-                  <tr>
-                    <th>广告类型</th>
-                    <th>官方明确</th>
-                    <th>官方建议</th>
-                    <th>归纳建议</th>
-                    <th>关键素材规格</th>
-                    <th>准确性备注</th>
-                  </tr>
-                </thead>
-                <tbody id="matrixBody">
-                  <tr data-type="rsa">
-                    <td>
-                      <span class="type-tag tag-search">Search</span>
-                      <div class="type-name">自适应搜索广告（RSA）</div>
-                    </td>
-                    <td class="cell">【官方明确】每个广告组至少添加 1 条广告效力为“良好”或“极佳”的 RSA。
-【官方明确】最多可提供 15 个标题和 4 条描述。</td>
-                    <td class="cell">【官方建议】尽可能提供更多标题和描述；在标题或描述中加入更相关的关键词。
-【官方建议】6+ 个站内链接会计入目标。</td>
-                    <td class="cell">把 RSA 当成“文案 + 站内链接 + 搜索附加素材”一起检查，而不只是写够标题和描述。</td>
-                    <td class="cell">标题 <=30 字符
-描述 <=90 字符
-路径每个 <=15 字符</td>
-                    <td class="cell">这一类的提升动作很多属于建议，不要把所有建议都理解成硬门槛。</td>
-                  </tr>
-                  <tr data-type="rda">
-                    <td>
-                      <span class="type-tag tag-display">Display</span>
-                      <div class="type-name">自适应展示广告（RDA）</div>
-                    </td>
-                    <td class="cell">【官方明确】广告效力会根据素材配置与最佳做法的对比情况给出反馈。
-【官方明确】RDA 在添加许多独特素材资源时效果最佳。</td>
-                    <td class="cell">【官方建议】最佳实践页建议准备横向 1.91:1、方形 1:1、纵向 9:16 图片，并尽量使用高质量、无拼贴、焦点清晰的图片。</td>
-                    <td class="cell">执行时把重点放在“素材多样化”和“图片质量”上，不要把某个单独尺寸写成广告效力硬门槛。</td>
-                    <td class="cell">短标题 1-5 个
-长标题 1 个
-描述 1-5 条
-图片最多 15 张
-9:16 来自最佳实践页</td>
-                    <td class="cell">这一类最容易把最佳实践页的建议误当成官方评分条件，这次已分开。</td>
-                  </tr>
-                  <tr data-type="app">
-                    <td>
-                      <span class="type-tag tag-app">Apps</span>
-                      <div class="type-name">应用广告系列</div>
-                    </td>
-                    <td class="cell">【官方明确】未完成的最低要求是至少 2 个标题和 1 条描述。
-【官方明确】如果完成进度菜单中的所有步骤并添加各种优质素材资源，评分会达到“极佳”。</td>
-                    <td class="cell">【官方建议】标题最多 5 个、描述最多 5 条。
-【官方建议】图片支持 1:1、1.91:1、4:5；视频可为横向、纵向或方形；建议上传尽可能多的视频。</td>
-                    <td class="cell">可以把“三方向视频都准备”作为强建议，但别把它写成官方极佳硬条件。</td>
-                    <td class="cell">标题 <=30 字符
-描述 <=90 字符
-图片 <=5MB
-视频最多 20 个</td>
-                    <td class="cell">这一类官方没有像 Demand Gen 那样把“极佳”拆成精确数量表，因此不做硬化推断。</td>
-                  </tr>
-                  <tr data-type="demand">
-                    <td>
-                      <span class="type-tag tag-demand">Demand Gen</span>
-                      <div class="type-name">需求开发广告系列</div>
-                    </td>
-                    <td class="cell">【官方明确】图片“良好”条件：1 个横向、1 个纵向、1 个方形；“极佳”条件：3 个横向、3 个纵向、3 个方形。
-【官方明确】视频、轮播、文字素材也分别给出条件。</td>
-                    <td class="cell">【官方建议】广告效力覆盖标题、文字、图片和视频，素材越多样越有利于效果。</td>
-                    <td class="cell">这类最适合直接做培训表，因为官方已经把“良好/极佳”写成结构化表格。</td>
-                    <td class="cell">单图标题最多 5 个（<=40）
-描述最多 5 条（<=90）
-视频支持 16:9、1:1、9:16
-轮播 2-10 张卡片</td>
-                    <td class="cell">这是五类里最适合“照表执行”的一类，因此保留了更多明确表述。</td>
-                  </tr>
-                  <tr data-type="pmax">
-                    <td>
-                      <span class="type-tag tag-pmax">Performance Max</span>
-                      <div class="type-name">效果最大化广告系列（PMax）</div>
-                    </td>
-                    <td class="cell">【官方明确】广告效力评定看素材资源组的广度和深度。
-【官方明确】标题最少 3、推荐 11、最多 15；长标题最少 1、推荐 2、最多 5；描述最少 2、推荐 4、最多 5。</td>
-                    <td class="cell">【官方建议】横屏图 1.91:1 推荐 4+、方图 1:1 推荐 4+、纵向 4:5 推荐 2+；方形徽标必需，横向徽标可选；站内链接 6+；视频建议每个方向 1 个。</td>
-                    <td class="cell">PMax 最适合做“最少 / 推荐 / 最大 / 必需 / 可选”规格表，而不是自己再创造新的评分口径。</td>
-                    <td class="cell">标题 <=30 字符
-长标题 <=90 字符
-描述 <=90 字符
-商家名称 <=25 字符
-图片 / 徽标 / 视频均有官方规格页</td>
-                    <td class="cell">“极佳 = 全部可选素材都必须补齐”不是官方逐字说法，所以这里改为建议层级。</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </section>
-        </section>
-
-        <section id="playbookTab" class="panel">
-          <section class="card">
-            <div class="section-head">
-              <h3>执行参考</h3>
-              <p>下面这页是为了方便协作和执行做的归纳，因此按“参考建议”来用，不按“官方逐字标准”来背。</p>
-            </div>
-            <div class="detail-grid">
-              <article class="card" style="box-shadow:none;">
-                <span class="badge b-derived">RSA 参考</span>
-                <div class="mini-list">
-                  <div class="mini-item">文案先尽量写满，不要只满足最低能投放要求。</div>
-                  <div class="mini-item">把站内链接、图片素材资源、商家徽标、商家名称纳入同一检查表。</div>
-                  <div class="mini-item">固定素材资源越少，组合空间通常越大。</div>
-                </div>
-              </article>
-              <article class="card" style="box-shadow:none;">
-                <span class="badge b-derived">RDA 参考</span>
-                <div class="mini-list">
-                  <div class="mini-item">优先解决素材多样化和图片质量，而不只是补数量。</div>
-                  <div class="mini-item">9:16 竖图很值得准备，但这里更偏最佳实践建议。</div>
-                  <div class="mini-item">避免拼贴图、伪按钮、焦点不清的素材。</div>
-                </div>
-              </article>
-              <article class="card" style="box-shadow:none;">
-                <span class="badge b-derived">App 参考</span>
-                <div class="mini-list">
-                  <div class="mini-item">先满足 2 标题 + 1 描述，再逐步补图片和视频。</div>
-                  <div class="mini-item">视频尽量覆盖横向、纵向、方形，但别把它写成官方极佳硬门槛。</div>
-                  <div class="mini-item">每条文字都要能独立成句，避免素材彼此重复。</div>
-                </div>
-              </article>
-              <article class="card" style="box-shadow:none;">
-                <span class="badge b-derived">Demand Gen 参考</span>
-                <div class="mini-list">
-                  <div class="mini-item">可以直接按官方“良好 / 极佳”表做素材台账。</div>
-                  <div class="mini-item">重点盯住 3 种宽高比和 3 种视频方向。</div>
-                  <div class="mini-item">Shorts 所需的 9:16 竖版素材尤其不要漏。</div>
-                </div>
-              </article>
-              <article class="card" style="box-shadow:none;">
-                <span class="badge b-derived">PMax 参考</span>
-                <div class="mini-list">
-                  <div class="mini-item">按“文字 / 图片 / 徽标 / 视频 / 站内链接”五块分别检查。</div>
-                  <div class="mini-item">推荐数不要当成最低数来理解。</div>
-                  <div class="mini-item">4:5、横向徽标、6+ 站内链接适合列入优化清单。</div>
-                </div>
-              </article>
-              <article class="card" style="box-shadow:none;">
-                <span class="badge b-risk">使用提醒</span>
-                <div class="mini-list">
-                  <div class="mini-item">对外引用、做制度、做培训时，优先引用“官方明确”栏。</div>
-                  <div class="mini-item">做团队协作和提报时，再引用“执行参考”栏。</div>
-                  <div class="mini-item">如果后面继续扩展，建议每条都补来源页链接和日期。</div>
-                </div>
-              </article>
-            </div>
-          </section>
-        </section>
-
-        <section id="sourcesTab" class="panel">
-          <section class="card">
-            <div class="section-head">
-              <h3>来源链接</h3>
-              <p>以下均为 Google Ads 官方帮助页。后续如果要继续提高准确性，建议在页面里给每一条结论加具体来源锚点。</p>
-            </div>
-            <div class="source-list">
-              <div class="source-item open">
-                <button class="source-toggle" type="button">
-                  <span>总入口：广告效力简介</span>
-                  <span>总览页</span>
-                </button>
-                <div class="source-body">
-                  <a href="https://support.google.com/google-ads/answer/9142254?hl=zh-Hans" target="_blank" rel="noreferrer">广告效力简介</a>
-                </div>
-              </div>
-              <div class="source-item">
-                <button class="source-toggle" type="button">
-                  <span>搜索广告专题</span>
-                  <span>RSA</span>
-                </button>
-                <div class="source-body">
-                  <a href="https://support.google.com/google-ads/answer/9921843?hl=zh-Hans" target="_blank" rel="noreferrer">自适应搜索广告的广告效力简介</a><br />
-                  <a href="https://support.google.com/google-ads/answer/7684791?hl=zh-Hans" target="_blank" rel="noreferrer">自适应搜索广告简介</a><br />
-                  <a href="https://support.google.com/google-ads/answer/6167122?hl=zh-Hans" target="_blank" rel="noreferrer">制作效果良好的搜索广告</a>
-                </div>
-              </div>
-              <div class="source-item">
-                <button class="source-toggle" type="button">
-                  <span>展示广告专题</span>
-                  <span>RDA</span>
-                </button>
-                <div class="source-body">
-                  <a href="https://support.google.com/google-ads/answer/9921844?hl=zh-Hans" target="_blank" rel="noreferrer">自适应展示广告的广告效力简介</a><br />
-                  <a href="https://support.google.com/google-ads/answer/7005917?hl=zh-Hans" target="_blank" rel="noreferrer">制作自适应展示广告</a><br />
-                  <a href="https://support.google.com/google-ads/answer/9823397?hl=zh-Hans" target="_blank" rel="noreferrer">自适应展示广告的最佳实践指南</a><br />
-                  <a href="https://support.google.com/google-ads/answer/9050310?hl=zh-Hans" target="_blank" rel="noreferrer">管理自适应展示广告</a>
-                </div>
-              </div>
-              <div class="source-item">
-                <button class="source-toggle" type="button">
-                  <span>应用广告专题</span>
-                  <span>App Campaigns</span>
-                </button>
-                <div class="source-body">
-                  <a href="https://support.google.com/google-ads/answer/9777426?hl=zh-Hans" target="_blank" rel="noreferrer">应用广告系列的广告效力简介</a><br />
-                  <a href="https://support.google.com/google-ads/answer/9948381?hl=zh-Hans" target="_blank" rel="noreferrer">应用广告系列的素材资源类型</a><br />
-                  <a href="https://support.google.com/google-ads/answer/9234183?hl=zh-Hans" target="_blank" rel="noreferrer">以吸引用户互动为目标的应用广告系列的素材资源要求</a>
-                </div>
-              </div>
-              <div class="source-item">
-                <button class="source-toggle" type="button">
-                  <span>需求开发专题</span>
-                  <span>Demand Gen</span>
-                </button>
-                <div class="source-body">
-                  <a href="https://support.google.com/google-ads/answer/13720855?hl=zh-Hans" target="_blank" rel="noreferrer">需求开发广告系列的广告效力简介</a><br />
-                  <a href="https://support.google.com/google-ads/answer/13704860?hl=zh-Hans" target="_blank" rel="noreferrer">需求开发广告系列素材资源的规格和最佳做法</a>
-                </div>
-              </div>
-              <div class="source-item">
-                <button class="source-toggle" type="button">
-                  <span>效果最大化专题</span>
-                  <span>PMax</span>
-                </button>
-                <div class="source-body">
-                  <a href="https://support.google.com/google-ads/answer/14143250?hl=zh-Hans" target="_blank" rel="noreferrer">效果最大化广告系列的广告效力</a><br />
-                  <a href="https://support.google.com/google-ads/answer/14528373?hl=zh-Hans" target="_blank" rel="noreferrer">关于适用于效果最大化广告系列的文字素材资源</a><br />
-                  <a href="https://support.google.com/google-ads/answer/14530211?hl=zh-Hans" target="_blank" rel="noreferrer">关于适用于效果最大化广告系列的图片素材资源</a><br />
-                  <a href="https://support.google.com/google-ads/answer/14528532?hl=zh-Hans" target="_blank" rel="noreferrer">关于适用于效果最大化广告系列的视频素材资源</a><br />
-                  <a href="https://support.google.com/google-ads/checklist/15995646?hl=zh-Hans" target="_blank" rel="noreferrer">提升效果最大化广告系列的广告效力</a>
-                </div>
-              </div>
-            </div>
-          </section>
-        </section>
-      </main>
+          </details>
+        </div>
+      </section>
     </div>
 
     <script>
       const rows = [...document.querySelectorAll("#matrixBody tr")];
       const searchInput = document.getElementById("searchInput");
-      const filters = [...document.querySelectorAll("#typeFilters .nav-btn")];
-      const countEl = document.getElementById("visibleCount");
-      const tabs = [...document.querySelectorAll(".tab")];
-      const panels = {
-        overview: document.getElementById("overviewTab"),
-        matrix: document.getElementById("matrixTab"),
-        playbook: document.getElementById("playbookTab"),
-        sources: document.getElementById("sourcesTab"),
-      };
-      const sourceItems = [...document.querySelectorAll(".source-item")];
-      let activeType = "all";
+      const typeFilter = document.getElementById("typeFilter");
 
-      function renderFilter() {
+      function render() {
         const keyword = searchInput.value.trim().toLowerCase();
-        let visible = 0;
+        const type = typeFilter.value;
 
         rows.forEach((row) => {
-          const okType = activeType === "all" || row.dataset.type === activeType;
+          const okType = type === "all" || row.dataset.type === type;
           const okKeyword = row.textContent.toLowerCase().includes(keyword);
-          const show = okType && okKeyword;
-          row.classList.toggle("hidden", !show);
-          if (show) visible += 1;
+          row.classList.toggle("hidden", !(okType && okKeyword));
         });
-
-        countEl.textContent = `当前显示：${visible} / ${rows.length}`;
       }
 
-      filters.forEach((btn) => {
-        btn.addEventListener("click", () => {
-          filters.forEach((item) => item.classList.remove("active"));
-          btn.classList.add("active");
-          activeType = btn.dataset.type;
-          renderFilter();
-        });
-      });
-
-      searchInput.addEventListener("input", renderFilter);
-
-      tabs.forEach((tab) => {
-        tab.addEventListener("click", () => {
-          tabs.forEach((item) => item.classList.remove("active"));
-          Object.values(panels).forEach((panel) => panel.classList.remove("active"));
-          tab.classList.add("active");
-          panels[tab.dataset.tab].classList.add("active");
-        });
-      });
-
-      sourceItems.forEach((item) => {
-        item.querySelector(".source-toggle").addEventListener("click", () => {
-          item.classList.toggle("open");
-        });
-      });
-
-      renderFilter();
+      searchInput.addEventListener("input", render);
+      typeFilter.addEventListener("change", render);
+      render();
     </script>
   </body>
 </html>
