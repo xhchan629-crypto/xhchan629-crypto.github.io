@@ -420,6 +420,68 @@
         gap: 14px;
       }
 
+      .detail-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+        margin-top: 18px;
+      }
+
+      .detail-card {
+        padding: 18px;
+        border-radius: 18px;
+        border: 1px solid var(--line);
+        background: var(--surface);
+        box-shadow: var(--shadow);
+      }
+
+      .detail-card h4 {
+        margin: 0 0 10px;
+        font-size: 19px;
+      }
+
+      .detail-card p {
+        margin: 0 0 12px;
+        color: var(--text-2);
+        line-height: 1.65;
+      }
+
+      .mini-list {
+        display: grid;
+        gap: 8px;
+      }
+
+      .mini-item {
+        padding: 11px 12px;
+        border-radius: 12px;
+        background: var(--surface-2);
+        border: 1px solid var(--line);
+        line-height: 1.6;
+      }
+
+      .spec-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .spec-card {
+        padding: 16px;
+        border-radius: 16px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+      }
+
+      .spec-card h4 {
+        margin: 0 0 10px;
+        font-size: 18px;
+      }
+
+      .spec-card .mini-item {
+        background: #fbfcfe;
+      }
+
       .note-box {
         padding: 16px;
         border-radius: 16px;
@@ -545,7 +607,9 @@
 
         .kpis,
         .grid-2,
-        .note-grid {
+        .note-grid,
+        .detail-grid,
+        .spec-grid {
           grid-template-columns: 1fr 1fr;
         }
       }
@@ -566,7 +630,9 @@
 
         .kpis,
         .grid-2,
-        .note-grid {
+        .note-grid,
+        .detail-grid,
+        .spec-grid {
           grid-template-columns: 1fr;
         }
 
@@ -637,6 +703,7 @@
         <div class="tabs">
           <button class="tab active" data-tab="dashboard">总览看板</button>
           <button class="tab" data-tab="matrix">对比矩阵</button>
+          <button class="tab" data-tab="playbook">执行手册</button>
           <button class="tab" data-tab="sources">来源与扩展</button>
         </div>
 
@@ -895,6 +962,132 @@
           </section>
         </section>
 
+        <section id="playbookTab" class="tab-panel">
+          <section class="table-card">
+            <div class="section-head">
+              <div>
+                <h3>素材规格速查</h3>
+                <p>把最常查的图片、视频和文案要求压成速查卡，适合投放和设计协作时快速对照。</p>
+              </div>
+            </div>
+            <div class="spec-grid">
+              <article class="spec-card">
+                <h4>搜索 / RSA</h4>
+                <div class="mini-list">
+                  <div class="mini-item">标题：最多 15 个，单条 <=30 字符</div>
+                  <div class="mini-item">描述：最多 4 条，单条 <=90 字符</div>
+                  <div class="mini-item">高分建议：站内链接 >=6，图片素材资源 >=4</div>
+                </div>
+              </article>
+              <article class="spec-card">
+                <h4>展示 / RDA</h4>
+                <div class="mini-list">
+                  <div class="mini-item">图片：横向 1.91:1、方形 1:1，建议补 9:16</div>
+                  <div class="mini-item">短标题：1-5 个；长标题：1 个；描述：1-5 条</div>
+                  <div class="mini-item">最多 15 张图片，徽标最多 5 个</div>
+                </div>
+              </article>
+              <article class="spec-card">
+                <h4>App Campaigns</h4>
+                <div class="mini-list">
+                  <div class="mini-item">标题最多 5 个，描述最多 5 条</div>
+                  <div class="mini-item">图片：1:1、1.91:1、4:5</div>
+                  <div class="mini-item">视频建议同时覆盖横向、纵向、方形</div>
+                </div>
+              </article>
+              <article class="spec-card">
+                <h4>Demand Gen</h4>
+                <div class="mini-list">
+                  <div class="mini-item">图片支持：1.91:1、1:1、4:5、9:16</div>
+                  <div class="mini-item">视频支持：16:9、1:1、9:16</div>
+                  <div class="mini-item">极佳关键：每种格式各 3 个素材资源</div>
+                </div>
+              </article>
+              <article class="spec-card">
+                <h4>PMax</h4>
+                <div class="mini-list">
+                  <div class="mini-item">标题推荐 11 个，长标题推荐 2 个，描述推荐 4 条</div>
+                  <div class="mini-item">图片必备：1.91:1、1:1；加分：4:5</div>
+                  <div class="mini-item">视频建议覆盖 16:9、1:1、9:16</div>
+                </div>
+              </article>
+              <article class="spec-card">
+                <h4>团队协作提示</h4>
+                <div class="mini-list">
+                  <div class="mini-item">文案同学先按推荐数写满，再做差异化</div>
+                  <div class="mini-item">设计同学优先补足宽高比，再谈创意变化</div>
+                  <div class="mini-item">投手检查站内链接、徽标、商家名称是否漏传</div>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section class="table-card" style="margin-top: 18px;">
+            <div class="section-head">
+              <div>
+                <h3>五类广告执行手册</h3>
+                <p>每一类都拆成“先做什么、怎么冲高分、容易漏什么”，方便直接照着执行。</p>
+              </div>
+            </div>
+            <div class="detail-grid">
+              <article class="detail-card">
+                <h4>自适应搜索广告（RSA）</h4>
+                <p>搜索广告的核心不是只把标题凑够，而是把搜索意图、文案差异化和附加素材一起补齐。</p>
+                <div class="mini-list">
+                  <div class="mini-item">先做：至少补满 10+ 标题、4 条描述、6 个站内链接。</div>
+                  <div class="mini-item">冲高分：标题不要重复堆词，把核心关键词自然放进不同语义的标题里。</div>
+                  <div class="mini-item">易漏项：图片素材资源、商家徽标、商家名称。</div>
+                </div>
+              </article>
+              <article class="detail-card">
+                <h4>自适应展示广告（RDA）</h4>
+                <p>展示广告高分的关键是素材广度，而不是单一主视觉做很多裁切。</p>
+                <div class="mini-list">
+                  <div class="mini-item">先做：补 1 张方图，至少 2 个标题 + 1 条描述。</div>
+                  <div class="mini-item">冲高分：横图、方图、竖图都准备；标题和描述要有明显区别。</div>
+                  <div class="mini-item">易漏项：9:16 竖图、不同卖点的长短标题版本。</div>
+                </div>
+              </article>
+              <article class="detail-card">
+                <h4>应用广告系列</h4>
+                <p>这一类的核心更偏“素材版位覆盖”，所以视频方向往往比文字数更容易影响展示机会。</p>
+                <div class="mini-list">
+                  <div class="mini-item">先做：补齐 2 个标题 + 1 条描述，并马上准备三方向视频。</div>
+                  <div class="mini-item">冲高分：横向、纵向、方形视频都要有，不要只传一个 YouTube 视频链接。</div>
+                  <div class="mini-item">易漏项：4:5 图片、竖版视频、更多版本的描述文案。</div>
+                </div>
+              </article>
+              <article class="detail-card">
+                <h4>需求开发广告系列</h4>
+                <p>Demand Gen 是最适合做标准流程的一类，因为良好和极佳的定义都非常清楚。</p>
+                <div class="mini-list">
+                  <div class="mini-item">先做：三种宽高比全部覆盖，先达成“良好”。</div>
+                  <div class="mini-item">冲高分：每种格式至少做 3 个素材资源，尤其别漏 9:16。</div>
+                  <div class="mini-item">易漏项：Shorts 用的竖版素材、轮播卡片统一宽高比。</div>
+                </div>
+              </article>
+              <article class="detail-card">
+                <h4>效果最大化广告系列（PMax）</h4>
+                <p>PMax 最适合拿来做团队模板，因为文字、图片、徽标、视频、链接都能标准化检查。</p>
+                <div class="mini-list">
+                  <div class="mini-item">先做：按推荐数补文案，横图、方图、方形徽标先到位。</div>
+                  <div class="mini-item">冲高分：继续补 4:5 纵图、横向徽标、视频和站内链接。</div>
+                  <div class="mini-item">易漏项：横向徽标、至少 1 个真实视频、账号层级站内链接。</div>
+                </div>
+              </article>
+              <article class="detail-card">
+                <h4>统一交付 SOP</h4>
+                <p>如果这页以后给团队用，建议任何广告上线前都按同一条清单走一遍。</p>
+                <div class="mini-list">
+                  <div class="mini-item">第 1 步：先确认文案数是否达到“推荐数”而不只是“最低数”。</div>
+                  <div class="mini-item">第 2 步：确认图片/视频宽高比是否覆盖版位需求。</div>
+                  <div class="mini-item">第 3 步：确认站内链接、徽标、商家名称、CTA 等附加资产是否完整。</div>
+                </div>
+              </article>
+            </div>
+          </section>
+        </section>
+
         <section id="sourcesTab" class="tab-panel">
           <section class="source-card" id="sources">
             <div class="section-head">
@@ -1002,6 +1195,7 @@
       const panels = {
         dashboard: document.getElementById("dashboardTab"),
         matrix: document.getElementById("matrixTab"),
+        playbook: document.getElementById("playbookTab"),
         sources: document.getElementById("sourcesTab"),
       };
       const sourceItems = [...document.querySelectorAll(".source-item")];
