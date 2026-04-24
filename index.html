@@ -1,0 +1,1078 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Google Ads 知识看板</title>
+    <style>
+      :root {
+        --bg: #f4f7fb;
+        --surface: #ffffff;
+        --surface-2: #f8fafc;
+        --line: #e6ebf2;
+        --text: #152033;
+        --text-2: #617089;
+        --navy: #183b68;
+        --blue: #2f76ff;
+        --blue-soft: #eaf2ff;
+        --green: #14b87a;
+        --green-soft: #e9fbf4;
+        --orange: #f59e0b;
+        --orange-soft: #fff5df;
+        --red: #eb5757;
+        --red-soft: #ffeded;
+        --shadow: 0 16px 38px rgba(20, 32, 51, 0.08);
+        --radius: 18px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+        background:
+          radial-gradient(circle at top right, rgba(47, 118, 255, 0.08), transparent 24%),
+          linear-gradient(180deg, #f7f9fc 0%, #f2f6fb 100%);
+        color: var(--text);
+      }
+
+      a {
+        color: var(--blue);
+        text-decoration: none;
+      }
+
+      button,
+      input,
+      select {
+        font: inherit;
+      }
+
+      .page {
+        display: grid;
+        grid-template-columns: 240px minmax(0, 1fr) 160px;
+        min-height: 100vh;
+      }
+
+      .sidebar,
+      .rightbar {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        padding: 22px 18px;
+      }
+
+      .sidebar {
+        background: linear-gradient(180deg, #15365f 0%, #1c4a7f 100%);
+        color: #fff;
+      }
+
+      .brand {
+        padding: 8px 8px 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        margin-bottom: 18px;
+      }
+
+      .brand .mini {
+        font-size: 12px;
+        opacity: 0.8;
+        letter-spacing: 0.08em;
+      }
+
+      .brand h1 {
+        margin: 10px 0 8px;
+        font-size: 26px;
+        line-height: 1.08;
+      }
+
+      .brand p {
+        margin: 0;
+        font-size: 13px;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .nav-block {
+        margin-bottom: 20px;
+      }
+
+      .nav-title {
+        margin: 0 0 10px;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.65);
+        letter-spacing: 0.08em;
+      }
+
+      .nav-buttons,
+      .right-buttons {
+        display: grid;
+        gap: 9px;
+      }
+
+      .nav-btn,
+      .type-btn,
+      .jump-btn {
+        width: 100%;
+        border: 1px solid transparent;
+        background: rgba(255, 255, 255, 0.08);
+        color: inherit;
+        padding: 11px 12px;
+        border-radius: 12px;
+        text-align: left;
+        cursor: pointer;
+        transition: 0.2s ease;
+      }
+
+      .nav-btn:hover,
+      .nav-btn.active {
+        background: #fff;
+        color: var(--navy);
+      }
+
+      .search-box {
+        width: 100%;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(255, 255, 255, 0.08);
+        color: white;
+        padding: 12px 13px;
+        border-radius: 12px;
+        outline: none;
+      }
+
+      .search-box::placeholder {
+        color: rgba(255, 255, 255, 0.55);
+      }
+
+      .main {
+        padding: 24px;
+      }
+
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 18px;
+        margin-bottom: 18px;
+      }
+
+      .topbar h2 {
+        margin: 0 0 8px;
+        font-size: 34px;
+      }
+
+      .topbar p {
+        margin: 0;
+        max-width: 760px;
+        color: var(--text-2);
+        line-height: 1.7;
+      }
+
+      .top-meta {
+        display: grid;
+        gap: 8px;
+        justify-items: end;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 12px;
+        border-radius: 999px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        color: var(--text-2);
+        white-space: nowrap;
+        box-shadow: var(--shadow);
+      }
+
+      .tabs {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 18px;
+      }
+
+      .tab {
+        border: 1px solid var(--line);
+        background: var(--surface);
+        color: var(--text-2);
+        padding: 10px 15px;
+        border-radius: 999px;
+        cursor: pointer;
+      }
+
+      .tab.active {
+        border-color: var(--blue);
+        background: var(--blue);
+        color: white;
+      }
+
+      .tab-panel {
+        display: none;
+      }
+
+      .tab-panel.active {
+        display: block;
+      }
+
+      .kpis {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+        margin-bottom: 18px;
+      }
+
+      .card,
+      .table-card,
+      .source-card,
+      .note-card,
+      .chart-card {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+      }
+
+      .kpi {
+        padding: 18px;
+      }
+
+      .kpi-label {
+        color: var(--text-2);
+        font-size: 13px;
+        margin-bottom: 10px;
+      }
+
+      .kpi-value {
+        font-size: 30px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+
+      .kpi-sub {
+        font-size: 13px;
+        color: var(--text-2);
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 16px;
+        margin-bottom: 18px;
+      }
+
+      .section-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 14px;
+      }
+
+      .section-head h3 {
+        margin: 0;
+        font-size: 20px;
+      }
+
+      .section-head p {
+        margin: 6px 0 0;
+        color: var(--text-2);
+        font-size: 14px;
+      }
+
+      .chart-card,
+      .note-card,
+      .table-card,
+      .source-card {
+        padding: 18px;
+      }
+
+      .progress-list {
+        display: grid;
+        gap: 12px;
+      }
+
+      .progress-item {
+        padding: 14px;
+        border-radius: 14px;
+        background: var(--surface-2);
+        border: 1px solid var(--line);
+      }
+
+      .progress-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 10px;
+        font-size: 14px;
+      }
+
+      .progress-bar {
+        height: 10px;
+        border-radius: 999px;
+        background: #eaf0f6;
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        height: 100%;
+        border-radius: inherit;
+      }
+
+      .bg-blue {
+        background: linear-gradient(90deg, #2f76ff 0%, #66a3ff 100%);
+      }
+
+      .bg-green {
+        background: linear-gradient(90deg, #14b87a 0%, #50d59f 100%);
+      }
+
+      .bg-orange {
+        background: linear-gradient(90deg, #f59e0b 0%, #ffc14d 100%);
+      }
+
+      .bg-red {
+        background: linear-gradient(90deg, #eb5757 0%, #ff8d8d 100%);
+      }
+
+      .matrix {
+        overflow: auto;
+      }
+
+      table {
+        width: 100%;
+        min-width: 1040px;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        padding: 14px 12px;
+        border-bottom: 1px solid var(--line);
+        vertical-align: top;
+        text-align: left;
+      }
+
+      th {
+        font-size: 13px;
+        color: var(--text-2);
+        background: #f7f9fc;
+        position: sticky;
+        top: 0;
+      }
+
+      tr.hidden {
+        display: none;
+      }
+
+      .type-tag {
+        display: inline-block;
+        padding: 5px 9px;
+        border-radius: 999px;
+        font-size: 12px;
+        margin-bottom: 8px;
+      }
+
+      .tag-search {
+        background: var(--blue-soft);
+        color: var(--blue);
+      }
+
+      .tag-display {
+        background: #eef4ff;
+        color: #4668d8;
+      }
+
+      .tag-app {
+        background: var(--green-soft);
+        color: var(--green);
+      }
+
+      .tag-demand {
+        background: var(--orange-soft);
+        color: #c77d00;
+      }
+
+      .tag-pmax {
+        background: var(--red-soft);
+        color: var(--red);
+      }
+
+      .type-name {
+        font-weight: 700;
+        color: var(--navy);
+      }
+
+      .cell {
+        white-space: pre-line;
+        line-height: 1.65;
+      }
+
+      .note-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .note-box {
+        padding: 16px;
+        border-radius: 16px;
+      }
+
+      .note-box:nth-child(1) {
+        background: var(--blue-soft);
+      }
+
+      .note-box:nth-child(2) {
+        background: var(--green-soft);
+      }
+
+      .note-box:nth-child(3) {
+        background: var(--orange-soft);
+      }
+
+      .note-box strong {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 17px;
+      }
+
+      .source-list {
+        display: grid;
+        gap: 12px;
+      }
+
+      .source-item {
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        overflow: hidden;
+      }
+
+      .source-toggle {
+        width: 100%;
+        border: 0;
+        background: white;
+        padding: 14px 16px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        text-align: left;
+      }
+
+      .source-body {
+        display: none;
+        padding: 0 16px 16px;
+        color: var(--text-2);
+        line-height: 1.7;
+      }
+
+      .source-item.open .source-body {
+        display: block;
+      }
+
+      .rightbar {
+        background: transparent;
+      }
+
+      .rightbox {
+        background: rgba(255, 255, 255, 0.72);
+        backdrop-filter: blur(14px);
+        border: 1px solid rgba(230, 235, 242, 0.9);
+        border-radius: 18px;
+        padding: 16px;
+        box-shadow: var(--shadow);
+      }
+
+      .rightbox h4 {
+        margin: 0 0 12px;
+        font-size: 13px;
+        color: var(--text-2);
+        letter-spacing: 0.06em;
+      }
+
+      .type-btn,
+      .jump-btn {
+        background: white;
+        border-color: var(--line);
+        color: var(--text);
+      }
+
+      .type-btn.active,
+      .jump-btn:hover {
+        border-color: var(--blue);
+        background: var(--blue-soft);
+        color: var(--blue);
+      }
+
+      .footer {
+        color: var(--text-2);
+        font-size: 13px;
+        margin-top: 14px;
+      }
+
+      @media (max-width: 1280px) {
+        .page {
+          grid-template-columns: 220px minmax(0, 1fr);
+        }
+
+        .rightbar {
+          display: none;
+        }
+      }
+
+      @media (max-width: 980px) {
+        .page {
+          display: block;
+        }
+
+        .sidebar,
+        .rightbar {
+          position: static;
+          height: auto;
+        }
+
+        .sidebar {
+          border-bottom-right-radius: 20px;
+          border-bottom-left-radius: 20px;
+        }
+
+        .kpis,
+        .grid-2,
+        .note-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (max-width: 720px) {
+        .main {
+          padding: 16px;
+        }
+
+        .topbar {
+          display: block;
+        }
+
+        .top-meta {
+          justify-items: start;
+          margin-top: 14px;
+        }
+
+        .kpis,
+        .grid-2,
+        .note-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .tabs {
+          overflow: auto;
+          flex-wrap: nowrap;
+          padding-bottom: 4px;
+        }
+
+        .tab {
+          white-space: nowrap;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="mini">GOOGLE ADS KNOWLEDGE HUB</div>
+          <h1>广告效力<br />知识看板</h1>
+          <p>按后台仪表盘的方式组织五类广告要求，适合你长期扩展成投放知识库。</p>
+        </div>
+
+        <div class="nav-block">
+          <div class="nav-title">内容检索</div>
+          <input id="searchInput" class="search-box" type="search" placeholder="搜索：9:16 / 站内链接 / 商家名称" />
+        </div>
+
+        <div class="nav-block">
+          <div class="nav-title">广告类型</div>
+          <div class="nav-buttons" id="typeFilters">
+            <button class="nav-btn active" data-type="all">全部广告类型</button>
+            <button class="nav-btn" data-type="rsa">自适应搜索广告</button>
+            <button class="nav-btn" data-type="rda">自适应展示广告</button>
+            <button class="nav-btn" data-type="app">应用广告系列</button>
+            <button class="nav-btn" data-type="demand">需求开发广告系列</button>
+            <button class="nav-btn" data-type="pmax">效果最大化广告系列</button>
+          </div>
+        </div>
+
+        <div class="nav-block">
+          <div class="nav-title">面板跳转</div>
+          <div class="nav-buttons">
+            <button class="nav-btn jump-btn" data-jump="#overview">总览</button>
+            <button class="nav-btn jump-btn" data-jump="#matrix">主对比表</button>
+            <button class="nav-btn jump-btn" data-jump="#playbook">执行观察</button>
+            <button class="nav-btn jump-btn" data-jump="#sources">来源链接</button>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main">
+        <div class="topbar">
+          <div>
+            <h2>Google Ads 广告效力仪表盘</h2>
+            <p>
+              参考你提供的后台页结构，这里改成了真正的 dashboard 形式：顶部看板、标签切换、侧边筛选、进度视图、对比表和来源折叠区。内容仍然聚焦 Google Ads 五类广告的广告效力最优指南。
+            </p>
+          </div>
+          <div class="top-meta">
+            <div class="pill">内容范围：5 类广告</div>
+            <div class="pill" id="visibleCount">当前显示：5 / 5</div>
+            <div class="pill">格式：单文件 HTML</div>
+          </div>
+        </div>
+
+        <div class="tabs">
+          <button class="tab active" data-tab="dashboard">总览看板</button>
+          <button class="tab" data-tab="matrix">对比矩阵</button>
+          <button class="tab" data-tab="sources">来源与扩展</button>
+        </div>
+
+        <section id="dashboardTab" class="tab-panel active">
+          <div class="kpis" id="overview">
+            <div class="card kpi">
+              <div class="kpi-label">覆盖广告类型</div>
+              <div class="kpi-value">5</div>
+              <div class="kpi-sub">RSA / RDA / App / Demand Gen / PMax</div>
+            </div>
+            <div class="card kpi">
+              <div class="kpi-label">官方来源页</div>
+              <div class="kpi-value">18</div>
+              <div class="kpi-sub">包含主入口 + 各广告类型分支页</div>
+            </div>
+            <div class="card kpi">
+              <div class="kpi-label">规则最清晰</div>
+              <div class="kpi-value">Demand Gen</div>
+              <div class="kpi-sub">良好/极佳门槛定义最明确</div>
+            </div>
+            <div class="card kpi">
+              <div class="kpi-label">最适合模板化执行</div>
+              <div class="kpi-value">PMax</div>
+              <div class="kpi-sub">素材类型和数量规范最完整</div>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <section class="chart-card">
+              <div class="section-head">
+                <div>
+                  <h3>高分清晰度看板</h3>
+                  <p>按“官方门槛是否明确 + 是否适合团队标准化执行”做的运营视图。</p>
+                </div>
+              </div>
+              <div class="progress-list">
+                <div class="progress-item">
+                  <div class="progress-top"><strong>Demand Gen</strong><span>95%</span></div>
+                  <div class="progress-bar"><div class="progress-fill bg-green" style="width:95%"></div></div>
+                </div>
+                <div class="progress-item">
+                  <div class="progress-top"><strong>PMax</strong><span>92%</span></div>
+                  <div class="progress-bar"><div class="progress-fill bg-blue" style="width:92%"></div></div>
+                </div>
+                <div class="progress-item">
+                  <div class="progress-top"><strong>RSA</strong><span>84%</span></div>
+                  <div class="progress-bar"><div class="progress-fill bg-orange" style="width:84%"></div></div>
+                </div>
+                <div class="progress-item">
+                  <div class="progress-top"><strong>RDA</strong><span>78%</span></div>
+                  <div class="progress-bar"><div class="progress-fill bg-orange" style="width:78%"></div></div>
+                </div>
+                <div class="progress-item">
+                  <div class="progress-top"><strong>App Campaigns</strong><span>70%</span></div>
+                  <div class="progress-bar"><div class="progress-fill bg-red" style="width:70%"></div></div>
+                </div>
+              </div>
+            </section>
+
+            <section class="note-card">
+              <div class="section-head">
+                <div>
+                  <h3>仪表盘结论</h3>
+                  <p>如果你是拿这页做团队内部知识沉淀，优先把这三个结论挂在最上面。</p>
+                </div>
+              </div>
+              <div class="note-grid">
+                <div class="note-box">
+                  <strong>Demand Gen</strong>
+                  “良好”要三种宽高比全覆盖，“极佳”要每种格式有 3 个素材资源，规则最适合培训新人。
+                </div>
+                <div class="note-box">
+                  <strong>PMax</strong>
+                  文字、图片、视频、徽标、站内链接都能标准化，是最适合做提报模板和素材清单的一类。
+                </div>
+                <div class="note-box">
+                  <strong>RSA / 搜索</strong>
+                  不只写标题和描述，还要补图片、徽标、商家名称、站内链接，否则很难把广告效力真正拉高。
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <section class="table-card" id="playbook">
+            <div class="section-head">
+              <div>
+                <h3>执行动作速览</h3>
+                <p>把每一类广告最值得先做的动作，压成一行运营动作。</p>
+              </div>
+            </div>
+            <div class="matrix">
+              <table>
+                <thead>
+                  <tr>
+                    <th>广告类型</th>
+                    <th>先做什么</th>
+                    <th>高分核心</th>
+                    <th>最容易漏掉</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>RSA</td>
+                    <td>先补满标题、描述和站内链接</td>
+                    <td>15 标题 + 4 描述 + 强相关关键词</td>
+                    <td>图片素材资源、商家徽标、商家名称</td>
+                  </tr>
+                  <tr>
+                    <td>RDA</td>
+                    <td>先补方图，再扩素材差异化</td>
+                    <td>图片、短标题、描述三类都要完整</td>
+                    <td>竖版图片和不重复文案</td>
+                  </tr>
+                  <tr>
+                    <td>App Campaigns</td>
+                    <td>先补三方向视频</td>
+                    <td>素材类型和视频方向覆盖足够广</td>
+                    <td>只传文字不传视频</td>
+                  </tr>
+                  <tr>
+                    <td>Demand Gen</td>
+                    <td>先补三种宽高比</td>
+                    <td>良好全覆盖，极佳每种格式 3 个素材</td>
+                    <td>Shorts 所需 9:16</td>
+                  </tr>
+                  <tr>
+                    <td>PMax</td>
+                    <td>先按推荐数补齐文字和图片</td>
+                    <td>广度 + 深度 + 可选素材也补齐</td>
+                    <td>纵向 4:5、横向徽标、站内链接</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+
+        <section id="matrixTab" class="tab-panel">
+          <section class="table-card" id="matrix">
+            <div class="section-head">
+              <div>
+                <h3>广告效力主对比矩阵</h3>
+                <p>把高分目标、良好门槛、极佳建议、文字要求、素材要求和备注统一放在一张后台表里。</p>
+              </div>
+            </div>
+            <div class="matrix">
+              <table>
+                <thead>
+                  <tr>
+                    <th>广告类型</th>
+                    <th>高分目标</th>
+                    <th>良好关键要求</th>
+                    <th>极佳 / 最优执行</th>
+                    <th>文字素材要求</th>
+                    <th>图片 / 视频 / 徽标要求</th>
+                    <th>关键备注</th>
+                  </tr>
+                </thead>
+                <tbody id="matrixBody">
+                  <tr data-type="rsa">
+                    <td>
+                      <span class="type-tag tag-search">Search</span>
+                      <div class="type-name">自适应搜索广告（RSA）</div>
+                    </td>
+                    <td class="cell">每个广告组至少有 1 条广告效力为“良好”或“极佳”的 RSA。</td>
+                    <td class="cell">3-15 个标题、2-4 条描述；标题/描述与关键字强相关；至少补齐 6 个站内链接，才更容易到良好/极佳。</td>
+                    <td class="cell">尽量用满 15 个标题 + 4 条描述；标题差异化；覆盖核心关键字；启用文案适配；补至少 4 个图片素材资源、商家徽标和商家名称。</td>
+                    <td class="cell">标题：3-15 个，每个 <=30 字符
+描述：2-4 条，每条 <=90 字符
+路径：1-2 个，每个 <=15 字符</td>
+                    <td class="cell">站内链接建议 >=6 个
+图片素材资源至少 4 项
+补齐商家徽标和商家名称</td>
+                    <td class="cell">官方还给出搜索广告层面的图片/徽标/名称最佳实践，高分不只是写文案。</td>
+                  </tr>
+                  <tr data-type="rda">
+                    <td>
+                      <span class="type-tag tag-display">Display</span>
+                      <div class="type-name">自适应展示广告（RDA）</div>
+                    </td>
+                    <td class="cell">先达到完整投放，再靠素材数量与多样性冲高评分。</td>
+                    <td class="cell">未完成门槛：至少 2 个标题 + 1 条描述；补 1 张方形图片；再增加更多图片区分度和文案差异度。</td>
+                    <td class="cell">覆盖横向、方形，并建议补竖版 9:16；标题和描述都做多版本且独立表达；持续替换效果不理想素材。</td>
+                    <td class="cell">短标题：1-5 个，每个 <=30 字符
+长标题：1 个，<=90 字符
+描述：1-5 条，每条 <=90 字符
+商家名称必填</td>
+                    <td class="cell">图片：横向 1.91:1、方形 1:1
+最佳实践建议补 9:16
+最多 15 张图片
+徽标支持 1:1 与 4:1，最多 5 个
+可加 YouTube 视频</td>
+                    <td class="cell">高分核心是图片、标题、描述三类素材完整且多样。</td>
+                  </tr>
+                  <tr data-type="app">
+                    <td>
+                      <span class="type-tag tag-app">Apps</span>
+                      <div class="type-name">应用广告系列</div>
+                    </td>
+                    <td class="cell">先满足最低文字要求，再补足图片与横/竖/方视频覆盖更多版位。</td>
+                    <td class="cell">至少 2 个标题 + 1 条描述；开始补图片；至少上传 1 个横屏、1 个竖屏、1 个方形视频。</td>
+                    <td class="cell">尽量填满素材池：最多 5 个标题、5 条描述、更多高质量图片、尽可能多的视频；同时补齐三种方向并持续替换效果欠佳素材。</td>
+                    <td class="cell">标题：最多 5 个，每个 <=30 字符
+描述：最多 5 条，每条 <=90 字符
+最低门槛仍是 2 标题 + 1 描述</td>
+                    <td class="cell">图片：1:1、1.91:1、4:5
+文件 <=5MB
+视频需托管在 YouTube
+视频最多 20 个
+建议覆盖横向 / 纵向 / 方形</td>
+                    <td class="cell">官方没有像 PMax 那样写死极佳数量门槛，更强调补齐素材类型与视频方向。</td>
+                  </tr>
+                  <tr data-type="demand">
+                    <td>
+                      <span class="type-tag tag-demand">Demand Gen</span>
+                      <div class="type-name">需求开发广告系列</div>
+                    </td>
+                    <td class="cell">良好核心是三种宽高比全覆盖；极佳核心是每种格式各有 3 个素材资源。</td>
+                    <td class="cell">图片和视频都覆盖横向 / 方形 / 纵向或竖屏；视频也可只上传 1 个横屏视频并启用视频增强功能，由 Google 自动生成方形和竖屏版本。</td>
+                    <td class="cell">全面优化时，每种格式准备 3 个素材资源；图片建议每种宽高比各上传 3 张；视频覆盖 16:9、1:1、9:16，并在前 5-10 秒抓住注意力。</td>
+                    <td class="cell">单图广告：标题最多 5 个（<=40）
+描述最多 5 条（<=90）
+商家名称 1 个必填
+
+视频广告：标题 <=40
+长标题 <=90
+描述 <=90</td>
+                    <td class="cell">单图最多 20 张图片
+支持 1.91:1、1:1、4:5、9:16
+视频支持 16:9、1:1、9:16
+轮播 2-10 张卡片，所有卡片宽高比一致</td>
+                    <td class="cell">这是五类里官方对良好/极佳定义最清楚的一类。</td>
+                  </tr>
+                  <tr data-type="pmax">
+                    <td>
+                      <span class="type-tag tag-pmax">Performance Max</span>
+                      <div class="type-name">效果最大化广告系列（PMax）</div>
+                    </td>
+                    <td class="cell">广告效力看的就是素材资源组的广度 + 深度；极佳通常要求可选素材也补齐。</td>
+                    <td class="cell">文字层面建议至少：11 个标题、2 个长标题、4 条描述、1 个商家名称；图片补齐横屏、方形、徽标；尽量补视频。</td>
+                    <td class="cell">继续补齐纵向 4:5 图片、横向徽标、账号/广告系列层级 >=6 个站内链接；图片与文字都尽量多样化，并建议至少上传 1 个视频。</td>
+                    <td class="cell">标题：最少 3，推荐 11，最多 15（<=30）
+长标题：最少 1，推荐 2，最多 5（<=90）
+描述：最少 2，推荐 4，最多 5（<=90）
+商家名称 1 个（<=25）</td>
+                    <td class="cell">图片：横屏 1.91:1、方形 1:1 为必备
+纵向 4:5 为加分
+徽标：方形必备，横向加分
+视频建议覆盖 16:9、9:16、1:1
+站内链接建议 >=6 个</td>
+                    <td class="cell">Google 直接把 PMax 广告效力定义成素材资源组的广度和深度等级。</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+
+        <section id="sourcesTab" class="tab-panel">
+          <section class="source-card" id="sources">
+            <div class="section-head">
+              <div>
+                <h3>官方来源与扩展区</h3>
+                <p>先放最关键的官方帮助页，后续你可以在这个面板继续加政策页、SOP、素材模板和案例库。</p>
+              </div>
+            </div>
+            <div class="source-list">
+              <div class="source-item open">
+                <button class="source-toggle" type="button">
+                  <span>总入口：广告效力简介</span>
+                  <span>总览页</span>
+                </button>
+                <div class="source-body">
+                  <a href="https://support.google.com/google-ads/answer/9142254?hl=zh-Hans" target="_blank" rel="noreferrer">https://support.google.com/google-ads/answer/9142254?hl=zh-Hans</a>
+                </div>
+              </div>
+              <div class="source-item">
+                <button class="source-toggle" type="button">
+                  <span>搜索广告专题</span>
+                  <span>RSA / Search</span>
+                </button>
+                <div class="source-body">
+                  <a href="https://support.google.com/google-ads/answer/9921843?hl=zh-Hans" target="_blank" rel="noreferrer">RSA 广告效力</a><br />
+                  <a href="https://support.google.com/google-ads/answer/6167122?hl=zh-Hans" target="_blank" rel="noreferrer">制作效果良好的搜索广告</a><br />
+                  <a href="https://support.google.com/google-ads/answer/7684791?hl=zh-Hans" target="_blank" rel="noreferrer">自适应搜索广告简介</a>
+                </div>
+              </div>
+              <div class="source-item">
+                <button class="source-toggle" type="button">
+                  <span>展示广告专题</span>
+                  <span>RDA</span>
+                </button>
+                <div class="source-body">
+                  <a href="https://support.google.com/google-ads/answer/9921844?hl=zh-Hans" target="_blank" rel="noreferrer">RDA 广告效力</a><br />
+                  <a href="https://support.google.com/google-ads/answer/7005917?hl=zh-Hans" target="_blank" rel="noreferrer">制作自适应展示广告</a><br />
+                  <a href="https://support.google.com/google-ads/answer/9050310?hl=zh-Hans" target="_blank" rel="noreferrer">管理自适应展示广告</a><br />
+                  <a href="https://support.google.com/google-ads/answer/9823397?hl=zh-Hans" target="_blank" rel="noreferrer">自适应展示广告最佳实践指南</a>
+                </div>
+              </div>
+              <div class="source-item">
+                <button class="source-toggle" type="button">
+                  <span>应用广告专题</span>
+                  <span>App Campaigns</span>
+                </button>
+                <div class="source-body">
+                  <a href="https://support.google.com/google-ads/answer/9777426?hl=zh-Hans" target="_blank" rel="noreferrer">应用广告系列的广告效力</a><br />
+                  <a href="https://support.google.com/google-ads/answer/9948381?hl=zh-Hans" target="_blank" rel="noreferrer">应用广告系列的素材资源类型</a><br />
+                  <a href="https://support.google.com/google-ads/answer/9234183?hl=zh-Hans" target="_blank" rel="noreferrer">以吸引用户互动为目标的应用广告系列素材资源要求</a>
+                </div>
+              </div>
+              <div class="source-item">
+                <button class="source-toggle" type="button">
+                  <span>需求开发专题</span>
+                  <span>Demand Gen</span>
+                </button>
+                <div class="source-body">
+                  <a href="https://support.google.com/google-ads/answer/13720855?hl=zh-Hans" target="_blank" rel="noreferrer">Demand Gen 广告效力</a><br />
+                  <a href="https://support.google.com/google-ads/answer/13704860?hl=zh-Hans" target="_blank" rel="noreferrer">Demand Gen 素材资源规格与最佳做法</a><br />
+                  <a href="https://support.google.com/google-ads/answer/14693848?hl=zh-Hans" target="_blank" rel="noreferrer">Demand Gen 最佳实践</a>
+                </div>
+              </div>
+              <div class="source-item">
+                <button class="source-toggle" type="button">
+                  <span>效果最大化专题</span>
+                  <span>PMax</span>
+                </button>
+                <div class="source-body">
+                  <a href="https://support.google.com/google-ads/answer/14143250?hl=zh-Hans" target="_blank" rel="noreferrer">PMax 广告效力</a><br />
+                  <a href="https://support.google.com/google-ads/checklist/15995646?hl=zh-Hans" target="_blank" rel="noreferrer">提升 PMax 广告效力</a><br />
+                  <a href="https://support.google.com/google-ads/answer/14530211?hl=zh-Hans" target="_blank" rel="noreferrer">PMax 图片素材资源</a><br />
+                  <a href="https://support.google.com/google-ads/answer/14528532?hl=zh-Hans" target="_blank" rel="noreferrer">PMax 视频素材资源</a>
+                </div>
+              </div>
+            </div>
+            <div class="footer">建议下一步继续加：政策避坑、素材模板、投放 SOP、账户结构案例、FAQ 模块。</div>
+          </section>
+        </section>
+      </main>
+
+      <aside class="rightbar">
+        <div class="rightbox">
+          <h4>快速过滤</h4>
+          <div class="right-buttons">
+            <button class="type-btn active" data-type="all">全部</button>
+            <button class="type-btn" data-type="rsa">搜索</button>
+            <button class="type-btn" data-type="rda">展示</button>
+            <button class="type-btn" data-type="app">应用</button>
+            <button class="type-btn" data-type="demand">需求开发</button>
+            <button class="type-btn" data-type="pmax">PMax</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <script>
+      const matrixRows = [...document.querySelectorAll("#matrixBody tr")];
+      const countEl = document.getElementById("visibleCount");
+      const searchInput = document.getElementById("searchInput");
+      const leftFilters = [...document.querySelectorAll("#typeFilters .nav-btn")];
+      const rightFilters = [...document.querySelectorAll(".type-btn")];
+      const jumpButtons = [...document.querySelectorAll(".jump-btn")];
+      const tabs = [...document.querySelectorAll(".tab")];
+      const panels = {
+        dashboard: document.getElementById("dashboardTab"),
+        matrix: document.getElementById("matrixTab"),
+        sources: document.getElementById("sourcesTab"),
+      };
+      const sourceItems = [...document.querySelectorAll(".source-item")];
+
+      let activeType = "all";
+
+      function setActiveButtons(buttons, type) {
+        buttons.forEach((btn) => {
+          btn.classList.toggle("active", btn.dataset.type === type);
+        });
+      }
+
+      function updateCount(visible) {
+        countEl.textContent = `当前显示：${visible} / ${matrixRows.length}`;
+      }
+
+      function renderFilter() {
+        const keyword = searchInput.value.trim().toLowerCase();
+        let visible = 0;
+
+        matrixRows.forEach((row) => {
+          const matchType = activeType === "all" || row.dataset.type === activeType;
+          const matchKeyword = row.textContent.toLowerCase().includes(keyword);
+          const show = matchType && matchKeyword;
+          row.classList.toggle("hidden", !show);
+          if (show) visible += 1;
+        });
+
+        updateCount(visible);
+      }
+
+      function activateType(type) {
+        activeType = type;
+        setActiveButtons(leftFilters, type);
+        setActiveButtons(rightFilters, type);
+        renderFilter();
+      }
+
+      leftFilters.forEach((btn) => {
+        btn.addEventListener("click", () => activateType(btn.dataset.type));
+      });
+
+      rightFilters.forEach((btn) => {
+        btn.addEventListener("click", () => activateType(btn.dataset.type));
+      });
+
+      searchInput.addEventListener("input", renderFilter);
+
+      jumpButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const target = document.querySelector(btn.dataset.jump);
+          if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      });
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          tabs.forEach((item) => item.classList.remove("active"));
+          Object.values(panels).forEach((panel) => panel.classList.remove("active"));
+          tab.classList.add("active");
+          panels[tab.dataset.tab].classList.add("active");
+        });
+      });
+
+      sourceItems.forEach((item) => {
+        item.querySelector(".source-toggle").addEventListener("click", () => {
+          item.classList.toggle("open");
+        });
+      });
+
+      renderFilter();
+    </script>
+  </body>
+</html>
